@@ -11,19 +11,19 @@ class LandingPageChooseLanguage extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size; //This gives total height and width of our screen
     return Scaffold(
-      backgroundColor: Colors.white70,
-      body: SingleChildScrollView(
-        child: Container(
-          height: size.height,
-          width: double.infinity,
+      backgroundColor: Colors.white,
+      body: Container(
+        height: size.height,
+        width: double.infinity,
 
+        child: SingleChildScrollView (
           child: Column( //all elements of page in a column
             children: <Widget>[
-              Row ( //for logo of app
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  SizedBox(height: size.height*0.25),
+              Align ( //for logo of app
+                alignment: Alignment.topCenter,
+                child:
                   Container (
+                    margin: EdgeInsets.only(top: 85),
                     child: Image.asset(
                       'assets/images/ci-logo-big.png',
                       height: 60,
@@ -31,12 +31,21 @@ class LandingPageChooseLanguage extends StatelessWidget {
                       fit: BoxFit.contain,
                     ),
                   )
-                ],
               ),
+              SizedBox(height: 10),
               Column( // for text
                 children: <Widget>[
                   Container(
-                    margin: EdgeInsets.fromLTRB(10.0, 10.0, 0.0, 0.0),
+                    child: Text(
+                      'Duckoshla',
+                      style: TextStyle(
+                        fontSize: 50,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.fromLTRB(10.0, 35.0, 0.0, 0.0),
                     child: Text(
                       'Select The Language of Your Choice.',
                       style: TextStyle(
@@ -46,7 +55,7 @@ class LandingPageChooseLanguage extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.fromLTRB(0.0, 15.0, 20.0, 0.0),
+                    margin: EdgeInsets.fromLTRB(0.0, 10.0, 20.0, 0.0),
                     child: Text(
                       'अपनी पसंद की भाषा चुनें |',
                       textAlign: TextAlign.left,
@@ -56,7 +65,7 @@ class LandingPageChooseLanguage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 60),
+                  SizedBox(height: 50),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
@@ -73,7 +82,7 @@ class LandingPageChooseLanguage extends StatelessWidget {
                           );
                         },
                       ),
-                      SizedBox(height: 10),
+                      SizedBox(height: 20),
                       RoundedButton(
                         text: 'हिन्दी',
                         color: Colors.lightBlueAccent,
@@ -90,7 +99,7 @@ class LandingPageChooseLanguage extends StatelessWidget {
                       )
                     ],
                   ),
-                  SizedBox(height: 80),
+                  SizedBox(height: 110),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[

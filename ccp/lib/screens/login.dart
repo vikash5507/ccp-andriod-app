@@ -13,67 +13,69 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Column(
-        children: <Widget>[
-          Row ( //for logo of app
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(height: size.height*0.25),
-              Container (
-                child: Image.asset(
-                  'assets/images/ci-logo-big.png',
-                  height: 60,
-                  width: 150,
-                  fit: BoxFit.contain,
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Row ( //for logo of app
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(height: size.height*0.25),
+                Container (
+                  child: Image.asset(
+                    'assets/images/ci-logo-big.png',
+                    height: 60,
+                    width: 150,
+                    fit: BoxFit.contain,
+                  ),
+                )
+              ],
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 50.0),
+              child: Text(
+                'Log in to CCP.',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30,
                 ),
-              )
-            ],
-          ),
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 50.0),
-            child: Text(
-              'Log in to CCP.',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 30,
               ),
             ),
-          ),
-          RoundedInputField(
-            hintText: 'Email, Phone no. or Username',
-            onChanged: (value) {},
-          ),
-          RoundedPasswordField(
-            onChanged: (value) {},
-          ),
-          SizedBox(height: size.height*0.02),
-          RoundedButton(
-            text: 'LOGIN',
-            press: () {},
-          ),
-          SizedBox(height: size.height*0.03),
-          AlreadyHaveOrNotAccountCheck(
-            press: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return SignUpScreen();
-                    }
-                  ),
-              );
-            },
-          ),
-          SizedBox(height: size.height*0.03),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              SkipToFeed(
-                press: () {},
-              ),
-            ],
-          )
-        ],
+            RoundedInputField(
+              hintText: 'Email, Phone no. or Username',
+              onChanged: (value) {},
+            ),
+            RoundedPasswordField(
+              onChanged: (value) {},
+            ),
+            SizedBox(height: size.height*0.02),
+            RoundedButton(
+              text: 'LOGIN',
+              press: () {},
+            ),
+            SizedBox(height: size.height*0.03),
+            AlreadyHaveOrNotAccountCheck(
+              press: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return SignUpScreen();
+                      }
+                    ),
+                );
+              },
+            ),
+            SizedBox(height: size.height*0.03),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                SkipToFeed(
+                  press: () {},
+                ),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
