@@ -1,10 +1,13 @@
+import 'package:ccp/components/already_have_or_not_account_check.dart';
 import 'package:ccp/screens/login.dart';
 import 'package:ccp/screens/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:ccp/components/rounded_button.dart';
 import 'package:ccp/components/skip_to_feed.dart';
+import 'package:ccp/components/app_logo_for_appbar.dart';
 
 //This is landing page of app which asks user for choosing language
+//make all UI responsive to orientation/add rotation animation and for different screen sizes - TODO
 
 class LandingPageChooseLanguage extends StatelessWidget {
   @override
@@ -12,103 +15,110 @@ class LandingPageChooseLanguage extends StatelessWidget {
     Size size = MediaQuery.of(context).size; //This gives total height and width of our screen
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        bottomOpacity: 0.0,
+        elevation: 0.0,
+        title: AppLogo(),
+      ),
       body: Container(
         height: size.height,
         width: double.infinity,
-
-        child: SingleChildScrollView (
-          child: Column( //all elements of page in a column
+        child: SingleChildScrollView(
+          child: Column(
             children: <Widget>[
-              Align ( //for logo of app
-                alignment: Alignment.topCenter,
-                child:
-                  Container (
-                    margin: EdgeInsets.only(top: 85),
-                    child: Image.asset(
-                      'assets/images/ci-logo-big.png',
-                      height: 60,
-                      width: 150,
-                      fit: BoxFit.contain,
-                    ),
-                  )
-              ),
-              SizedBox(height: 10),
-              Column( // for text
+              SizedBox(height: size.height*0.05,),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Container(
-                    child: Text(
-                      'Duckoshla',
-                      style: TextStyle(
-                        fontSize: 50,
-                        fontWeight: FontWeight.bold,
-                      ),
+                  Text(
+                    'Duckhosla',
+                    style: TextStyle(
+                      fontSize: 55,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Container(
-                    margin: EdgeInsets.fromLTRB(10.0, 35.0, 0.0, 0.0),
-                    child: Text(
-                      'Select The Language of Your Choice.',
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                      ),
+                  SizedBox(height: size.height*0.03,),
+                  Text(
+                    'See what\'s',
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Container(
-                    margin: EdgeInsets.fromLTRB(0.0, 10.0, 20.0, 0.0),
-                    child: Text(
-                      'अपनी पसंद की भाषा चुनें |',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontFamily: 'NotoSans',
-                      ),
+                  Text(
+                    'happening in your',
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 50),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      RoundedButton(
-                        text: 'ENGLISH',
-                        press: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context){
-                                return SignUpScreen();
-                                },
-                            ),
-                          );
-                        },
-                      ),
-                      SizedBox(height: 20),
-                      RoundedButton(
-                        text: 'हिन्दी',
-                        color: Colors.lightBlueAccent,
-                        press: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context){
-                                return SignUpScreen();
-                              },
-                            ),
-                          );
-                        },
-                      )
-                    ],
-                  ),
-                  SizedBox(height: 110),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      SkipToFeed(
-                        press: () {},
-                      ),
-                    ],
+                  Text(
+                    'locality right now.',
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ],
+              ),
+              SizedBox(height: size.height*0.13,),
+              Text(
+                'Select language of your choice',
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: size.height*0.05,),
+              RoundedButton(
+                text: 'ENGLISH',
+                press: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return SignUpScreen();
+                      },
+                    ),
+                  );
+                },
+              ),
+              SizedBox(height: size.height*0.02,),
+              RoundedButton(
+                text: 'हिन्दी',
+                color: Colors.grey,
+                press: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return SignUpScreen();
+                      },
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: new BottomAppBar(
+        elevation: 0.0,
+        child: Container(
+          margin: EdgeInsets.fromLTRB(20.0, 10.0, 0.0, 15.0),
+          child: new Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              AlreadyHaveOrNotAccountCheck(
+                login: false,
+                press: () {
+                  Navigator.push(
+                    context, MaterialPageRoute(
+                    builder: (context) {return LoginScreen();},
+                  ),
+                  );
+                },
               ),
             ],
           ),
