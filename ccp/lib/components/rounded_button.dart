@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 
 //rounded login and other buttons widget e.g English etc.
+//make button statefull - TODO
 
 class RoundedButton extends StatelessWidget {
   final String text;
+  final double width;
   final Function press;
   final Color color, textColor;
   const RoundedButton({
     Key key,
+    this.width = 0.9,
     this.text,
     this.press,
     this.color = Colors.blueAccent,
@@ -20,12 +23,12 @@ class RoundedButton extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Container( //language buttons
       margin: EdgeInsets.symmetric(),
-      width: size.width * 0.9,
+      width: size.width * width,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(30),
         child: FlatButton(
           padding: EdgeInsets.symmetric(vertical: 15),
-          color: Colors.blueAccent,
+          color: color,
           onPressed: press,
           child: Text(
             '$text',

@@ -11,18 +11,19 @@ class SkipToFeed extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Container(
-      margin: EdgeInsets.only(right: 10.0),
-      child: InkWell(
-        onTap: press,
-        child: new Padding(
-          padding: EdgeInsets.all(5.0),
-          child: new Text(
-            'Skip to Feed',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              decoration: TextDecoration.underline,
-            ),
+      margin: EdgeInsets.symmetric(),
+      //width: size.width*0.1,
+      child: FlatButton(
+        onPressed: press,
+        color: Colors.transparent,
+        child: new Text(
+          'Skip to Feed',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.blueAccent,
+            //decoration: TextDecoration.underline,
           ),
         ),
       ),
