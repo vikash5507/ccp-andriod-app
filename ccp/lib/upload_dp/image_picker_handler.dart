@@ -20,7 +20,12 @@ class ImagePickerHandler {
   openCamera() async {
     imagePicker.dismissDialog();
     var image = await _picker.getImage(source: ImageSource.camera);
-    File tmpFile = File(image.path);
+    File tmpFile = File(image.path); // Error here 
+    /*Exception has occurred.
+NoSuchMethodError (NoSuchMethodError: The getter 'path' was called on null.
+Receiver: null
+Tried calling: path)
+    */
     cropImage(tmpFile);
   }
 

@@ -1,3 +1,4 @@
+import 'package:ccp/screens/posts/empty_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:ccp/components/app_logo_for_appbar.dart';
 
@@ -74,6 +75,12 @@ class SignUpComplete extends StatelessWidget {
                   color: Colors.grey,
                 ),
               ),
+              RaisedButton(
+                child: Text("Dummy Nav"),
+                onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {return EmptyTimelinePage();},),);
+                },
+              )
             ],
           ),
         ),

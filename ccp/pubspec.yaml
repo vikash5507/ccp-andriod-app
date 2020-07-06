@@ -25,6 +25,7 @@ dependencies:
     sdk: flutter
   image_picker: ^0.6.7+2
   image_cropper: ^1.2.3
+  font_awesome_flutter: "^8.8.0"
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -51,6 +52,8 @@ flutter:
     - assets/images/ci-logo-big.png
     - assets/images/fb.png
     - assets/images/checkmark.gif
+    - assets/images/
+    - assets/images/Icons/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
