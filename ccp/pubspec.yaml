@@ -23,10 +23,19 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  shared_preferences: ^0.5.8
   image_picker: ^0.6.7+2
   image_cropper: ^1.2.3
   font_awesome_flutter: "^8.8.0"
-
+  auto_route: ^0.6.6
+  flutter_bloc: ^5.0.0
+  build_runner: ^1.10.0
+  equatable: ^1.2.0
+  http: ^0.12.1
+  meta: ^1.1.8
+  rxdart: ^0.23.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -35,6 +44,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  auto_route_generator: ^0.6.0
+  
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -54,6 +65,8 @@ flutter:
     - assets/images/checkmark.gif
     - assets/images/
     - assets/images/Icons/
+    - lib/core/utils/lang/en.json
+    - lib/core/utils/lang/hi.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
