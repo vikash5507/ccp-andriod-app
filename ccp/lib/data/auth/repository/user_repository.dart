@@ -1,15 +1,12 @@
 import 'dart:async';
-import 'dart:math';
 
-import 'package:ccp/core/utils/constants/backend_const.dart';
 import 'package:ccp/data/auth/models/user_model.dart';
-import 'package:http/http.dart' as http;
 
 
 
 class UserRepository {
 
-  Future<bool> signUp({String fullname, String email, String password}) async {
+  Future<AuthUser> signUp({String fullname, String email, String password}) async {
     // TODO: implement signUp
     //Map<String, dynamic> signUpBody = user.toJson();
     // final response = await http.post(BackendConstants.signUpUrl,
@@ -24,15 +21,16 @@ class UserRepository {
     //   return false;
     // }
     //return true;
-    final random = Random();
-    return random.nextBool();
+    //final random = Random();
+    //return random.nextBool();
+    return AuthUser(uid: '123',email: 'abc@gmail.com', fullname: 'Dummy', password: 'not-return');
   }
 
   //Store Locally in shared_preferences if user ever logged in or not
   
 
-  Future<User> signInWithCredentials({String email, String password}) async {
-    return User(email: 'abc@gmail.com', fullname: 'Dummy', password: 'not-return');
+  Future<AuthUser> signInWithCredentials({String email, String password}) async {
+    return AuthUser(uid: '123',email: 'abc@gmail.com', fullname: 'Dummy Duck', password: 'not-return');
   }
 
   Future<bool> isLoggedIn() async {
@@ -52,16 +50,22 @@ class UserRepository {
     return Future.wait({});
   }
 
-  Future<User> getUser() async {
-    return User(email: 'abc@gmail.com', fullname: 'Dummy', password: 'not-return');
+  Future<AuthUser> getUser() async {
+    //return null;
+    return AuthUser(uid: '123', email: 'abc@gmail.com', fullname: 'Dummy Duck', password: 'not-return');
   }
 
-  Future<User> signInWithGoogle() async {
-    return User(email: 'abc@gmail.com', fullname: 'Dummy', password: 'not-return');
+  Future<AuthUser> signInWithGoogle() async {
+    return AuthUser(uid: '123',email: 'abc@gmail.com', fullname: 'Dummy Duck', password: 'not-return');
   }
 
-  Future<User> signInWithFacebook() async{
-    return User(email: 'abc@gmail.com', fullname: 'Dummy', password: 'not-return');
+  Future<AuthUser> signInWithFacebook() async{
+    return AuthUser(uid: '123',email: 'abc@gmail.com', fullname: 'Dummy Duck', password: 'not-return');
+  }
+
+  Future<String> sendPasswordResetEmail({String email}) async{
+    String link = "Dummy Reset url String!!";
+    return link;
   }
   
 }

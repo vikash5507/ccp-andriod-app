@@ -1,33 +1,36 @@
-import 'package:ccp/core/routes/router.gr.dart';
-import 'package:ccp/core/utils/colors.dart';
-import 'package:ccp/ui/auth/app_widget.dart';
+import 'package:ccp/state/chatState.dart';
+import 'package:ccp/state/feedState.dart';
+import 'package:ccp/state/notificationState.dart';
+import 'package:ccp/state/searchState.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ccp/helper/theme.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-
-import 'core/bloc/simple_bloc_observer.dart';
-import 'core/utils/localization/demo_localization.dart';
-import 'core/utils/localization/language_constants.dart';
+import 'helper/localization/demo_localization.dart';
+import 'helper/localization/language_constants.dart';
+import 'helper/routes.dart';
+import 'state/appState.dart';
+import 'package:provider/provider.dart';
+import 'state/authState.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  Bloc.observer = SimpleBlocObserver();
-  runApp(CcpApp());
+  runApp(MyApp());
 }
 
-class CcpApp extends StatefulWidget {
-  const CcpApp({Key key}) : super(key: key);
+class MyApp extends StatefulWidget {
+  const MyApp({Key key}) : super(key: key);
 
   static void setLocale(BuildContext context, Locale newLocale) {
-    _CcpAppState state = context.findAncestorStateOfType<_CcpAppState>();
+    _MyAppState state = context.findAncestorStateOfType<_MyAppState>();
     state.setLocale(newLocale);
   }
 
   @override
-  _CcpAppState createState() => _CcpAppState();
+  _MyAppState createState() => _MyAppState();
 }
 
-class _CcpAppState extends State<CcpApp> {
+class _MyAppState extends State<MyApp> {
   Locale _locale;
   setLocale(Locale locale) {
     setState(() {
@@ -52,38 +55,49 @@ class _CcpAppState extends State<CcpApp> {
       return Container(
         child: Center(
           child: CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(primaryCcpColor)),
+              valueColor: AlwaysStoppedAnimation<Color>(CcpColor.primary)),
         ),
       );
     } else {
-      return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'CCP',
-        theme: ThemeData(
-          scaffoldBackgroundColor: Colors.white70,
-        ),
-        locale: _locale,
-        supportedLocales: [
-          Locale("en", "US"),
-          Locale("hi", "IN")
+      return MultiProvider(
+        providers: [
+          ChangeNotifierProvider<AppState>(create: (_) => AppState()),
+          ChangeNotifierProvider<AuthState>(create: (_) => AuthState()),
+          ChangeNotifierProvider<FeedState>(create: (_) => FeedState()),
+          ChangeNotifierProvider<ChatState>(create: (_) => ChatState()),
+          ChangeNotifierProvider<SearchState>(create: (_) => SearchState()),
+          ChangeNotifierProvider<NotificationState>(create: (_) => NotificationState()),
         ],
-        localizationsDelegates: [
-          DemoLocalization.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        localeResolutionCallback: (locale, supportedLocales) {
-          for (var supportedLocale in supportedLocales) {
-            if (supportedLocale.languageCode == locale.languageCode &&
-                supportedLocale.countryCode == locale.countryCode) {
-              return supportedLocale;
+        child: MaterialApp(
+          title: 'CCP',
+          theme: AppTheme.apptheme.copyWith(
+            textTheme: GoogleFonts.muliTextTheme(
+              Theme.of(context).textTheme,
+            ),
+          ),
+          debugShowCheckedModeBanner: false,
+          locale: _locale,
+          supportedLocales: [Locale("en", "US"), Locale("hi", "IN")],
+          localizationsDelegates: [
+            DemoLocalization.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          localeResolutionCallback: (locale, supportedLocales) {
+            for (var supportedLocale in supportedLocales) {
+              if (supportedLocale.languageCode == locale.languageCode &&
+                  supportedLocale.countryCode == locale.countryCode) {
+                return supportedLocale;
+              }
             }
-          }
-          return supportedLocales.first;
-        },
-        onGenerateRoute: Router()
-        //home: AppWidget(),
+            return supportedLocales.first;
+          },
+          routes: Routes.route(),
+          onGenerateRoute: (settings) => Routes.onGenerateRoute(settings),
+          onUnknownRoute: (settings) => Routes.onUnknownRoute(settings),
+          initialRoute: "SplashPage",
+        ),
       );
     }
   }

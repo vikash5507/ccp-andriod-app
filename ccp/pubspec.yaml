@@ -26,9 +26,16 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   shared_preferences: ^0.5.8
+  cached_network_image: ^2.2.0+1
+  provider:
   image_picker: ^0.6.7+2
   image_cropper: ^1.2.3
   font_awesome_flutter: "^8.8.0"
+  google_fonts: ^1.1.0
+  uuid: ^2.0.0
+  share: ^0.6.3
+  url_launcher:
+  google_sign_in: 
   auto_route: ^0.6.6
   flutter_bloc: ^5.0.0
   build_runner: ^1.10.0
@@ -65,8 +72,8 @@ flutter:
     - assets/images/checkmark.gif
     - assets/images/
     - assets/images/Icons/
-    - lib/core/utils/lang/en.json
-    - lib/core/utils/lang/hi.json
+    - lib/helper/lang/en.json
+    - lib/helper/lang/hi.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -79,10 +86,31 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
+  # fonts:
+  #   - family: NotoSans
+  #     fonts:
+  #       - asset: fonts/NotoSans-Bold.ttf
   fonts:
-    - family: NotoSans
+    - family: TwitterIcon
       fonts:
-        - asset: fonts/NotoSans-Bold.ttf
+        - asset: assets/fonts/icons.ttf
+    - family: HelveticaNeue
+      fonts:
+        - asset: assets/fonts/HelveticaNeue.ttf
+        - asset: assets/fonts/HelveticaNeue400.ttf
+          weight: 400
+        - asset: assets/fonts/HelveticaNeue500.ttf
+          weight: 500
+        - asset: assets/fonts/HelveticaNeue600.ttf
+          weight: 600
+        - asset: assets/fonts/HelveticaNeue700.ttf
+          weight: 700
+        - asset: assets/fonts/HelveticaNeue800.ttf
+          weight: 800
+        - asset: assets/fonts/HelveticaNeue900.ttf
+          weight: 900
+        - asset: assets/fonts/HelveticaNeueIt.ttf
+          style: italic
 
 
   #

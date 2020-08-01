@@ -1,26 +1,29 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-class User extends Equatable {
+class AuthUser extends Equatable {
+  final String uid;
   final String fullname;
   final String email;
   final String password;
 
-  User({
-    @required this.fullname, 
-    @required this.email, 
-    @required this.password
-  });
+  AuthUser(
+      {@required this.uid, @required this.fullname, @required this.email, @required this.password});
 
   @override
-  List<Object> get props => [fullname, email, password];
+  List<Object> get props => [uid, fullname, email, password];
 
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(fullname: json['fullname'], email: json['email'], password: json['password']);
+  factory AuthUser.fromJson(Map<String, dynamic> json) {
+    return AuthUser(
+        uid: json['uid'],
+        fullname: json['fullname'],
+        email: json['email'],
+        password: json['password']);
   }
 
   Map<String, dynamic> toJson() {
     return {
+      'uid': uid,
       'fullname': fullname,
       'email': email,
       'password': password,
