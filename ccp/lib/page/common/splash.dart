@@ -76,6 +76,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     var state = Provider.of<AuthState>(context);
+    print("Inside Splash Page build");
     return Scaffold(
       backgroundColor: CcpColor.white,
       body: state.authStatus == AuthStatus.NOT_DETERMINED

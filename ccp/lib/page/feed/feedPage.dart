@@ -34,6 +34,7 @@ class FeedPage extends StatelessWidget {
             key: refreshIndicatorKey,
             onRefresh: () async {
               /// refresh home page feed
+              print("inside feed page on refresh");
               var feedState = Provider.of<FeedState>(context, listen: false);
               feedState.getDataFromDatabase();
               return Future.value(true);

@@ -18,10 +18,35 @@ class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
   int pageIndex = 0;
+
+  final PageStorageBucket bucket = PageStorageBucket();
+
+  final List<Widget> pages = [
+    FeedPage(
+      key: PageStorageKey('Page1'),
+    ),
+    SearchPage(
+      key: PageStorageKey('Page2'),
+    ),
+    NotificationPage(
+      key: PageStorageKey('Page3'),
+    ),
+    ChatListPage(
+      key: PageStorageKey('Page4'),
+    ),
+  ];
+
+
+  // final FeedPage _feedPage = new FeedPage();
+  // final SearchPage _searchPage = new SearchPage();
+  // final NotificationPage _notificationPage = new NotificationPage();
+  // final ChatListPage _chatListPage = new ChatListPage();
+
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       var state = Provider.of<AppState>(context, listen: false);
+      print("inside HomePage init state");//ToDo remove this comment
       state.setpageIndex = 0;
       initTweets();
       // initProfile();
@@ -30,10 +55,17 @@ class _HomePageState extends State<HomePage> {
       // initChat();
     });
 
+    //// Create all the pages once and return same instance when required
+    // final FeedPage _feedPage = new FeedPage(scaffoldKey: _scaffoldKey, refreshIndicatorKey: refreshIndicatorKey,);
+    // final SearchPage _searchPage = new SearchPage(scaffoldKey: _scaffoldKey);
+    // final NotificationPage _notificationPage = new NotificationPage(scaffoldKey: _scaffoldKey);
+    // final ChatListPage _chatListPage = new ChatListPage(scaffoldKey: _scaffoldKey);
+
     super.initState();
   }
 
   void initTweets() {
+    print("in the initTweets");
     var state = Provider.of<FeedState>(context, listen: false);
     state.databaseInit();
     state.getDataFromDatabase();
@@ -109,38 +141,50 @@ class _HomePageState extends State<HomePage> {
 
   Widget _body() {
     //_checkNotification();
-    return SafeArea(
-      child: Container(
-        child: _getPage(Provider.of<AppState>(context).pageIndex),
+    print("inside HomePage body!!");
+    return PageStorage(
+          child: SafeArea(
+        child: Container(
+          child: pages[Provider.of<AppState>(context).pageIndex],
+          //child: _getPage(Provider.of<AppState>(context).pageIndex),
+        ),
       ),
+      bucket: bucket,
     );
   }
 
-  Widget _getPage(int index) {
+  /*Widget _getPage(int index) { //ToDo -> removed it after using PageStorage for persistant bottom navigation bar
+
     switch (index) {
       case 0:
+        //return _feedPage;
         return FeedPage(
           scaffoldKey: _scaffoldKey,
           refreshIndicatorKey: refreshIndicatorKey,
         );
         break;
       case 1:
+        //return _searchPage;
         return SearchPage(scaffoldKey: _scaffoldKey);
         break;
       case 2:
+        //return _notificationPage;
         return NotificationPage(scaffoldKey: _scaffoldKey);
         break;
       case 3:
+        //return _chatListPage;
         return ChatListPage(scaffoldKey: _scaffoldKey);
         break;
       default:
+        //return _feedPage;
         return FeedPage(scaffoldKey: _scaffoldKey);
         break;
     }
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
+    print("inside HomePage build");
     return Scaffold(
       key: _scaffoldKey,
       bottomNavigationBar: BottomMenubar(),

@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ccp/helper/constant.dart';
 import 'package:ccp/state/appState.dart';
-import 'package:ccp/state/authState.dart';
 import 'package:ccp/widgets/bottomMenuBar/tabItem.dart';
 import 'package:provider/provider.dart';
 import '../customWidgets.dart';
