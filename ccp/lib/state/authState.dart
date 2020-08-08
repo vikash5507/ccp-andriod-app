@@ -17,7 +17,7 @@ class AuthState extends AppState {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   AuthUser user;
   String userId;
-  User _userModel = User(email: "vikash@gmail.com", userId: "1234", displayName: "Dumro Duck", profilePic: dummyProfilePic, key: "1", contact: "12333", bio: "President of Duck", dob: "22222", location: "Intenet", createdAt: "Home", userName: "Duck123", isVerified: true, followers: 1234334, following: 7, fcmToken: "ghanta", webSite: "dumroo.com", followersList: ["alpha", "beta"]); //ToDO remove this after integrating it backend
+  User _userModel = User(email: "vikash@gmail.com", userId: "1234", displayName: "Dumro Duck", profilePic: dummyProfilePic, key: "1", contact: "12333", bio: "President of Duck", dob: "22222", location: "Intenet", createdAt: "2020-04-03 14:47:46.596949", userName: "Duck123", isVerified: true, followers: 1234334, following: 7, fcmToken: "ghanta", webSite: "dumroo.com", followersList: ["alpha", "beta"]); //ToDO remove this after integrating it backend
 
   User get userModel => _userModel;
   
@@ -156,14 +156,65 @@ class AuthState extends AppState {
   /// ToDo - i don't know if it's needed or not -> Fetch user profile 
  /// If `userProfileId` is null then logged in user's profile will fetched
   getProfileUser({String userProfileId}) {
+    logEvent('get_profile');
     try {
       loading = true;
       
       userProfileId = userProfileId == null ? user.uid : userProfileId;
+      loading = false;
     } catch (error) {
       loading = false;
       cprint(error, errorIn: 'getProfileUser');
     }
+  }
+
+
+  /// Follow / Unfollow user
+  ///
+  /// If `removeFollower` is true then remove user from follower list
+  ///
+  /// If `removeFollower` is false then add user to follower list
+  followUser({bool removeFollower = false}) {
+    /// `userModel` is user who is looged-in app.
+    /// `profileUserModel` is user whoose profile is open in app.
+    try {
+      if (removeFollower) {
+        /// If logged-in user `alredy follow `profile user then
+        /// 1.Remove logged-in user from profile user's `follower` list
+        /// 2.Remove profile user from logged-in user's `following` list
+        //profileUserModel.followersList.remove(userModel.userId);
+
+        /// Remove profile user from logged-in user's following list
+        //userModel.followingList.remove(profileUserModel.userId);
+        cprint('user removed from following list', event: 'remove_follow');
+      } else {
+        /// if logged in user is `not following` profile user then
+        /// 1.Add logged in user to profile user's `follower` list
+        /// 2. Add profile user to logged in user's `following` list
+        // if (profileUserModel.followersList == null) {
+        //   profileUserModel.followersList = [];
+        // }
+        // profileUserModel.followersList.add(userModel.userId);
+        // Adding profile user to logged-in user's following list
+        if (userModel.followingList == null) {
+          userModel.followingList = [];
+        }
+        //userModel.followingList.add(profileUserModel.userId);
+      }
+      // update profile user's user follower count
+      //profileUserModel.followers = profileUserModel.followersList.length;
+      // update logged-in user's following count
+      userModel.following = userModel.followingList.length;
+      
+      cprint('user added to following list', event: 'add_follow');
+      notifyListeners();
+    } catch (error) {
+      cprint(error, errorIn: 'followUser');
+    }
+  }
+
+  void removeLastUser() {
+    //_profileUserModelList.removeLast();
   }
 
 }

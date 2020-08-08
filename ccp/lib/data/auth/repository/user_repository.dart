@@ -1,7 +1,8 @@
 import 'dart:async';
 
 import 'package:ccp/data/auth/models/user_model.dart';
-
+import 'package:ccp/helper/backend_const.dart';
+import 'package:http/http.dart' as http;
 
 
 class UserRepository {
@@ -34,7 +35,7 @@ class UserRepository {
   }
 
   Future<bool> isLoggedIn() async {
-    return false;
+    return true;
     //final random = Random();
     //return random.nextBool();
     // final response = await http.get(BackendConstants.getUserUrl);
@@ -52,7 +53,13 @@ class UserRepository {
 
   Future<AuthUser> getUser() async {
     //return null;
-    return AuthUser(uid: '123', email: 'abc@gmail.com', fullname: 'Dummy Duck', password: 'not-return');
+    bool isLogged = await isLoggedIn();
+    if(isLogged) {
+      return AuthUser(uid: '1234', email: 'abc@gmail.com', fullname: 'Dummy Duck', password: 'not-return');
+    } else {
+      return AuthUser(uid: '1234', email: 'abc@gmail.com', fullname: 'Bluff Duck', password: 'not-return');
+    }
+    
   }
 
   Future<AuthUser> signInWithGoogle() async {

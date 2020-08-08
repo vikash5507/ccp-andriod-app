@@ -5,6 +5,7 @@ import 'package:ccp/page/Auth/signin.dart';
 import 'package:ccp/page/Auth/signup.dart';
 import 'package:ccp/page/common/splash.dart';
 import 'package:ccp/page/feed/createPost.dart';
+import 'package:ccp/page/profile/profilePage.dart';
 import 'package:ccp/state/createPostState.dart';
 import 'package:ccp/widgets/customWidgets.dart';
 import 'package:flutter/material.dart';
@@ -42,17 +43,22 @@ class Routes {
       //       create: (_) => ComposeTweetState(),
       //       child: ComposeTweetPage(isRetweet:isRetweet, isTweet: isTweet),
       //     ));
-      //   case "FeedPostDetail":
-      //     var postId = pathElements[2];
-      //       return SlideLeftRoute<bool>(builder:(BuildContext context)=> FeedPostDetail(postId: postId,),settings: RouteSettings(name:'FeedPostDetail'));
-      //     case "ProfilePage":
-      //      String profileId;
-      //      if(pathElements.length > 2){
-      //          profileId = pathElements[2];
-      //      }
-      //     return CustomRoute<bool>(builder:(BuildContext context)=> ProfilePage(
-      //       profileId: profileId,
-      //     ));
+      // case "FeedPostDetail":
+      //   var postId = pathElements[2];
+      //   return SlideLeftRoute<bool>(
+      //       builder: (BuildContext context) => FeedPostDetail(
+      //             postId: postId,
+      //           ),
+      //       settings: RouteSettings(name: 'FeedPostDetail'));
+      case "ProfilePage":
+        String profileId;
+        if (pathElements.length > 2) {
+          profileId = pathElements[2];
+        }
+        return CustomRoute<bool>(
+            builder: (BuildContext context) => ProfilePage(
+                  profileId: profileId,
+                ));
       case "CreateFeedPage":
         return CustomRoute<bool>(
             builder: (BuildContext context) =>

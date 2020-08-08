@@ -21,20 +21,20 @@ class _HomePageState extends State<HomePage> {
 
   final PageStorageBucket bucket = PageStorageBucket();
 
-  final List<Widget> pages = [
-    FeedPage(
-      key: PageStorageKey('Page1'),
-    ),
-    SearchPage(
-      key: PageStorageKey('Page2'),
-    ),
-    NotificationPage(
-      key: PageStorageKey('Page3'),
-    ),
-    ChatListPage(
-      key: PageStorageKey('Page4'),
-    ),
-  ];
+  // final List<Widget> pages = [
+  //   FeedPage(
+  //     key: PageStorageKey('Page1'),
+  //   ),
+  //   SearchPage(
+  //     key: PageStorageKey('Page2'),
+  //   ),
+  //   NotificationPage(
+  //     key: PageStorageKey('Page3'),
+  //   ),
+  //   ChatListPage(
+  //     key: PageStorageKey('Page4'),
+  //   ),
+  // ];
 
 
   // final FeedPage _feedPage = new FeedPage();
@@ -54,13 +54,6 @@ class _HomePageState extends State<HomePage> {
       // initNotificaiton();
       // initChat();
     });
-
-    //// Create all the pages once and return same instance when required
-    // final FeedPage _feedPage = new FeedPage(scaffoldKey: _scaffoldKey, refreshIndicatorKey: refreshIndicatorKey,);
-    // final SearchPage _searchPage = new SearchPage(scaffoldKey: _scaffoldKey);
-    // final NotificationPage _notificationPage = new NotificationPage(scaffoldKey: _scaffoldKey);
-    // final ChatListPage _chatListPage = new ChatListPage(scaffoldKey: _scaffoldKey);
-
     super.initState();
   }
 
@@ -145,42 +138,43 @@ class _HomePageState extends State<HomePage> {
     return PageStorage(
           child: SafeArea(
         child: Container(
-          child: pages[Provider.of<AppState>(context).pageIndex],
-          //child: _getPage(Provider.of<AppState>(context).pageIndex),
+          //child: pages[Provider.of<AppState>(context).pageIndex],
+          child: _getPage(Provider.of<AppState>(context).pageIndex),
         ),
       ),
       bucket: bucket,
     );
   }
 
-  /*Widget _getPage(int index) { //ToDo -> removed it after using PageStorage for persistant bottom navigation bar
+  Widget _getPage(int index) { //ToDo -> removed it after using PageStorage for persistant bottom navigation bar
 
     switch (index) {
       case 0:
         //return _feedPage;
         return FeedPage(
+          key: PageStorageKey('Page1'),
           scaffoldKey: _scaffoldKey,
           refreshIndicatorKey: refreshIndicatorKey,
         );
         break;
       case 1:
         //return _searchPage;
-        return SearchPage(scaffoldKey: _scaffoldKey);
+        return SearchPage(key: PageStorageKey('Page2'), scaffoldKey: _scaffoldKey);
         break;
       case 2:
         //return _notificationPage;
-        return NotificationPage(scaffoldKey: _scaffoldKey);
+        return NotificationPage(key: PageStorageKey('Page3'), scaffoldKey: _scaffoldKey);
         break;
       case 3:
         //return _chatListPage;
-        return ChatListPage(scaffoldKey: _scaffoldKey);
+        return ChatListPage(key: PageStorageKey('Page4'), scaffoldKey: _scaffoldKey);
         break;
       default:
         //return _feedPage;
-        return FeedPage(scaffoldKey: _scaffoldKey);
+        return FeedPage(key: PageStorageKey('Page1'), scaffoldKey: _scaffoldKey);
         break;
     }
-  }*/
+  }
 
   @override
   Widget build(BuildContext context) {
