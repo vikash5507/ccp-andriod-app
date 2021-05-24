@@ -1,4 +1,5 @@
 
+import 'package:ccp/helper/enum.dart';
 import 'package:ccp/helper/localization/language_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:ccp/helper/theme.dart';
@@ -141,7 +142,17 @@ class _SignInState extends State<SignIn> {
           .signIn(_emailController.text, _passwordController.text,
               scaffoldKey: _scaffoldKey)
           .then((status) {
-        if (state.user != null) {
+            print(status);
+        // if (state.user != null) {
+        //   loader.hideLoader();
+        //   Navigator.pop(context);
+        //   widget.loginCallback();
+        // } else {
+        //   cprint('Unable to login', errorIn: '_emailLoginButton');
+        //   loader.hideLoader();
+        // }
+      }).whenComplete(() {
+        if (state.authStatus == AuthStatus.LOGGED_IN) {
           loader.hideLoader();
           Navigator.pop(context);
           widget.loginCallback();

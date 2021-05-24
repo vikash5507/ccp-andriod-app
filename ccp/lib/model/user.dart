@@ -4,16 +4,19 @@ class User {
   String userId;
   String displayName;
   String userName;
-  String webSite;
+  String mobileNumber;
   String profilePic;
   String contact;
   String bio;
-  String location;
+  String primaryLocation;
+  String secondaryLocation;
   String dob;
   String createdAt;
   bool isVerified;
   int followers;
   int following;
+  int karma;
+  int postCount;
   String fcmToken;
   List<String> followersList;
   List<String> followingList;
@@ -27,12 +30,15 @@ class User {
       this.contact,
       this.bio,
       this.dob,
-      this.location,
+      this.primaryLocation,
+      this.secondaryLocation,
       this.createdAt,
       this.userName,
       this.followers,
       this.following,
-      this.webSite,
+      this.karma,
+      this.postCount,
+      this.mobileNumber,
       this.isVerified,
       this.fcmToken,
       this.followersList,
@@ -52,13 +58,16 @@ class User {
     key = map['key'];
     dob = map['dob'];
     bio = map['bio'];
-    location = map['location'];
+    primaryLocation = map['location'];
+    secondaryLocation = map['secondaryLocation'];
     contact = map['contact'];
     createdAt = map['createdAt'];
     followers = map['followers'];
     following = map['following'];
+    karma = map['karma'];
+    postCount = map['postCount'];
     userName = map['userName'];
-    webSite = map['webSite'];
+    mobileNumber = map['mobileNumber'];
     fcmToken = map['fcmToken'];
     isVerified = map['isVerified'] ?? false;
     if(map['followerList'] != null){
@@ -86,12 +95,15 @@ class User {
       'contact': contact,
       'dob': dob,
       'bio': bio,
-      'location': location,
+      'primaryLocation': primaryLocation,
+      'secondaryLocation': secondaryLocation,
       'createdAt': createdAt,
       'followers': followersList != null ? followersList.length : null,
       'following': followingList!= null ? followingList.length : null,
       'userName': userName,
-      'webSite': webSite,
+      'mobileNumber': mobileNumber,
+      'karma': karma,
+      'postCount': postCount,
       'isVerified': isVerified ?? false,
       'fcmToken':fcmToken,
       'followerList' : followersList,
@@ -106,14 +118,17 @@ class User {
       String profilePic,
       String key,
       String contact,
-      bio,
+      String bio,
       String dob,
-      String location,
+      String primaryLocation,
+      String secondaryLocation,
       String createdAt,
       String userName,
       int followers,
       int following,
-      String webSite,
+      int karma,
+      int postCount,
+      String mobileNumber,
       bool isVerified,
       String fcmToken,
       List<String> followingList,
@@ -129,11 +144,14 @@ class User {
         following: following ?? this.following,
         isVerified: isVerified ?? this.isVerified,
         key: key ?? this.key,
-        location: location ?? this.location,
+        primaryLocation: primaryLocation ?? this.primaryLocation,
+        secondaryLocation: secondaryLocation ?? this.secondaryLocation,
         profilePic: profilePic ?? this.profilePic,
         userId: userId ?? this.userId,
         userName: userName ?? this.userName,
-        webSite: webSite ?? this.webSite,
+        mobileNumber: mobileNumber ?? this.mobileNumber,
+        karma: karma ?? this.karma,
+        postCount: postCount ?? this.postCount,
         fcmToken:fcmToken ?? this.fcmToken,
         followersList: followersList ?? this.followersList,
         );

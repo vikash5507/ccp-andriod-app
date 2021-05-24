@@ -62,13 +62,14 @@ class UserTile extends StatelessWidget {
 
   /// Check if user followerlist contain your or not
   /// If your id exist in follower list it mean you are following him
-  bool isFollowing() {
-    if (user.followersList != null &&
-        user.followersList.any((x) => x == myId)) {
-      return true;
-    } else {
-      return false;
-    }
+  bool isFollowing() {//ToDO - call backend to isFollowing
+    // if (user.followersList != null &&
+    //     user.followersList.any((x) => x == myId)) {
+    //   return true;
+    // } else {
+    //   return false;
+    // }
+    return true;
   }
 
   @override

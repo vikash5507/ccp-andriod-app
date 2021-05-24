@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:ccp/model/feedModel.dart';
 import 'package:flutter/material.dart';
 import 'package:ccp/state/searchState.dart';
@@ -9,6 +11,7 @@ class CreatePostState extends ChangeNotifier {
   String description = "";
   String serverToken;
   final usernameRegex = r'(@\w*[a-zA-Z1-9]$)';
+  bool isAssestSelected = false;
 
   bool _isScrollingDown = false;
   bool get isScrollingDown => _isScrollingDown;
@@ -46,7 +49,7 @@ class CreatePostState extends ChangeNotifier {
   void onDescriptionChanged(String text, SearchState searchState) {
     description = text;
     hideUserList = false;
-    if (text.isEmpty || text.length > 280) {
+    if ((text.isEmpty || text.length > 280) && !isAssestSelected) {
       /// Disable submit button if description is not availabele
       enableSubmitButton = false;
       notifyListeners();
@@ -101,6 +104,25 @@ class CreatePostState extends ChangeNotifier {
     /// ToDO Implement Notification Service
     if (status) {
       print(status);
+    }
+  }
+
+//enable disable Post button on Assest change
+  void onAssestChanged(File f) {
+    if(f == null){
+      /// Disable submit button if asset is not availabele
+      isAssestSelected = false;
+      if(description.isEmpty || description.length > 280) {
+        enableSubmitButton = false;
+      }
+      notifyListeners();
+      return;
+    } else {
+      /// Enable submit button if asset is availabele
+      isAssestSelected = true;
+      enableSubmitButton = true;
+      notifyListeners();
+      return;
     }
   }
 

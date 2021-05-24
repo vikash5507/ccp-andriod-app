@@ -17,7 +17,7 @@ class AuthState extends AppState {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   AuthUser user;
   String userId;
-  User _userModel = User(email: "vikash@gmail.com", userId: "1234", displayName: "Dumro Duck", profilePic: dummyProfilePic, key: "1", contact: "12333", bio: "President of Duck", dob: "22222", location: "Intenet", createdAt: "2020-04-03 14:47:46.596949", userName: "Duck123", isVerified: true, followers: 1234334, following: 7, fcmToken: "ghanta", webSite: "dumroo.com", followersList: ["alpha", "beta"]); //ToDO remove this after integrating it backend
+  User _userModel = User(email: "vikash@gmail.com", userId: "1234", displayName: "Dumro Duck", profilePic: dummyProfilePic, key: "1", contact: "12333", bio: "President of Duck", dob: "22222", primaryLocation: "Intenet", createdAt: "2020-04-03 14:47:46.596949", userName: "Duck123", isVerified: true, followers: 1234334, following: 7, fcmToken: "ghanta", followersList: ["alpha", "beta"]); //ToDO remove this after integrating it backend
 
   User get userModel => _userModel;
   
@@ -43,43 +43,64 @@ class AuthState extends AppState {
   }
 
   Future<String> signIn(String email, String password, {GlobalKey<ScaffoldState> scaffoldKey}) async {
+    String returnUserId;
     try{
       loading = true;
       logEvent("user SignedIn with Credentials");
-      user = await _userRepository.signInWithCredentials(email: email, password: password);
-      userId = user.uid;
-      _userModel = userModel;
-      //authStatus = AuthStatus.LOGGED_IN;
-      return user.uid;
+      var result = await _userRepository.signInWithCredentials(email: email, password: password);
+      user = result;
+      if(user == null) {
+        customSnackBar(scaffoldKey, "Username or Password is incorrect!!", backgroundColor: Colors.redAccent);
+      } else {
+        userId = user.uid;
+        //_userModel = userModel;
+        authStatus = AuthStatus.LOGGED_IN;
+        returnUserId = userId;
+      }
     } catch (error) {
       loading = false;
       cprint(error, errorIn: 'signIn');
       customSnackBar(scaffoldKey, error.message);
-      return null;
+      //return null;
     }
+    return returnUserId;
   }
 
   Future<String> signUp(User userModel, {GlobalKey<ScaffoldState> scaffoldKey, String password}) async {
+    String returnUserId;
     try{
       loading = true;
       logEvent("user SignedUp with Credentials");
-      user = await _userRepository.signUp(fullname: userModel.displayName, email: userModel.email, password: password);
-      authStatus = AuthStatus.LOGGED_IN;
-      _userModel = userModel;
-      _userModel.key = user.uid;
-      _userModel.userId = user.uid;
-      _userModel.profilePic = dummyProfilePic;
-      createUser(_userModel, newUser: true);
-      //ToDo - push to DB
-      return user.uid;
+      var result = await _userRepository.signUp(fullname: userModel.displayName, email: userModel.email, password: password);
+      user = result;
+      if(user == null) {
+        customSnackBar(scaffoldKey, "User Already Registered!! SignUp with different Email or Phone", backgroundColor: Colors.redAccent);
+      } else {
+        authStatus = AuthStatus.LOGGED_IN;
+        _userModel = userModel;
+        _userModel.key = user.uid;
+        _userModel.userId = user.username;
+        _userModel.profilePic = dummyProfilePic;
+        //createUser(_userModel, newUser: true);
+        //ToDo - push to DB (Not needed as UserProfile is already created)
+        returnUserId = user.uid;
+        loading = false;
+      }
     } catch (error) {
       loading = false;
       cprint(error, errorIn: 'signUp');
-      customSnackBar(scaffoldKey, error.message);
-      return null;
+      customSnackBar(scaffoldKey, error.toString());
+      //return null;
     }
+    return returnUserId;
   }
   
+  // Future<bool> isUserAlreadyExist(String username) async {
+  //   try{
+  //     logEvent("Checking If user already exist, while signup!");
+      
+  //   } catch
+  // }
 
   Future<AuthUser> handleGoogleSignIn() async {
     try{
@@ -168,6 +189,24 @@ class AuthState extends AppState {
     }
   }
 
+  /// `Fetch` user `detail` whoose userId is passed
+  // Future<User> getuserDetail(String userId) async {
+  //   User user;
+  //   var snapshot = await kDatabase.child('profile').child(userId).once();
+  //   if (snapshot.value != null) {
+  //     var map = snapshot.value;
+  //     user = User.fromJson(map);
+  //     user.key = snapshot.key;
+  //     return user;
+  //   } else {
+  //     return null;
+  //   }
+  // }
+
+  // Future<bool> isUserAlreadyRegistered(String userId) async {
+  //   return _userRepository.isUserAlreadyExist(userId);
+  // }
+
 
   /// Follow / Unfollow user
   ///
@@ -196,15 +235,15 @@ class AuthState extends AppState {
         // }
         // profileUserModel.followersList.add(userModel.userId);
         // Adding profile user to logged-in user's following list
-        if (userModel.followingList == null) {
-          userModel.followingList = [];
-        }
+        // if (userModel.followingList == null) {
+        //   userModel.followingList = [];
+        // }
         //userModel.followingList.add(profileUserModel.userId);
       }
       // update profile user's user follower count
       //profileUserModel.followers = profileUserModel.followersList.length;
       // update logged-in user's following count
-      userModel.following = userModel.followingList.length;
+      //userModel.following = userModel.followingList.length;
       
       cprint('user added to following list', event: 'add_follow');
       notifyListeners();

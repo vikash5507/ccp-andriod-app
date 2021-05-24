@@ -1,8 +1,11 @@
 import 'dart:io';
 
+import 'package:ccp/helper/theme.dart';
+import 'package:ccp/state/createPostState.dart';
 import 'package:flutter/material.dart';
 import 'package:ccp/widgets/customWidgets.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 class ComposeBottomIconWidget extends StatefulWidget {
   final TextEditingController textEditingController;
@@ -40,7 +43,7 @@ class _ComposeBottomIconWidgetState extends State<ComposeBottomIconWidget> {
         } else if (widget.textEditingController.text.length >= 280) {
           wordCountColor = Theme.of(context).errorColor;
         } else {
-          wordCountColor = Colors.blue;
+          wordCountColor = CcpColor.primary;
         }
       }
     });
@@ -132,8 +135,12 @@ class _ComposeBottomIconWidgetState extends State<ComposeBottomIconWidget> {
     final _picker = ImagePicker();
     PickedFile image = await _picker.getImage(source: source, imageQuality: 20);
     File file = File(image.path);
+    //var createPostState = Provider.of<CreatePostState>(context, listen: false);
+    //print("Outside!!! when assest changed!");
     setState(() {
+      //print("when assest changed!");
       widget.onImageIconSelcted(file);
+      //createPostState.onAssestChanged(file);
     });
     // ImagePicker.pickImage(source: source, imageQuality: 20).then((File file) {
     //   setState(() {

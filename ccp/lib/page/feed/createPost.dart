@@ -70,12 +70,16 @@ class _CreatePostReplyPageState extends State<CreatePostPage> {
   }
 
   void _onCrossIconPressed() {
+    //print("Image REMOVED in CREATE-POST!!");
+    Provider.of<CreatePostState>(context, listen: false).onAssestChanged(null);
     setState(() {
       _image = null;
     });
   }
 
   void _onImageIconSelcted(File file) {
+    //print("Image selected in CREATE-POST!!");
+    Provider.of<CreatePostState>(context, listen: false).onAssestChanged(file);
     setState(() {
       _image = file;
     });
@@ -83,13 +87,14 @@ class _CreatePostReplyPageState extends State<CreatePostPage> {
 
   /// Submit tweet to save in firebase database
   void _submitButton() async {
-    if (_textEditingController.text == null ||
+    if ((_textEditingController.text == null ||
         _textEditingController.text.isEmpty ||
-        _textEditingController.text.length > 280) {
+        _textEditingController.text.length > 280) && 
+        _image == null ) {
       return;
     }
     var state = Provider.of<FeedState>(context, listen: false);
-    FocusScope.of(context).requestFocus(FocusNode());//ToDo - added to bring down keyboard after 
+    FocusScope.of(context).requestFocus(FocusNode());//ToDo - added to bring down keyboard after restart
     kScreenloader.showLoader(context);
 
     FeedModel tweetModel = createTweetModel();

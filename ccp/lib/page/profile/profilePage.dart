@@ -286,18 +286,19 @@ class _ProfilePageState extends State<ProfilePage>
   }
 
   isFollower() {
-    var authstate = Provider.of<AuthState>(context);
+    //var authstate = Provider.of<AuthState>(context);//ToDo Need to implement isFollower Logic in backend
     // if (authstate.profileUserModel.followersList != null &&
     //     authstate.profileUserModel.followersList.isNotEmpty) {
     //   return (authstate.profileUserModel.followersList
     //       .any((x) => x == authstate.userModel.userId));
-    if (authstate.userModel.followersList != null &&
-        authstate.userModel.followersList.isNotEmpty) {
-      return (authstate.userModel.followersList
-          .any((x) => x == authstate.userModel.userId));
-    } else {
-      return false;
-    }
+    // if (authstate.userModel.followersList != null &&
+    //     authstate.userModel.followersList.isNotEmpty) {
+    //   return (authstate.userModel.followersList
+    //       .any((x) => x == authstate.userModel.userId));
+    // } else {
+    //   return false;
+    // }
+    return true;
   }
 
   /// This meathod called when user pressed back button
@@ -604,7 +605,7 @@ class UserNameRowWidget extends StatelessWidget {
               SizedBox(width: 10),
               Expanded(
                 child: customText(
-                  user.location,
+                  user.primaryLocation,
                   style: TextStyle(color: AppColor.darkGrey),
                 ),
               )
